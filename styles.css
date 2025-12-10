@@ -1,4 +1,13 @@
+/* ============================================================
+   odin-recipes styles.css — cleaned & documented
+   - Comments explain purpose and parent/child relationships.
+   - Keep the @font-face but add a note to include the font file.
+   ============================================================ */
 
+/* ---------------------------
+   Theme variables (root)
+   - Used by all rules below as the single source of truth.
+   --------------------------- */
 :root {
     --win95-bg: #C0C0C0;
     --win95-dark: #808080;
@@ -6,29 +15,56 @@
     --win95-blue: #000080;
     --win95-text: #000000;
 }
+
+/* ---------------------------
+   Optional font-face
+   - Defines the "W95FA" font. If you don't have the file,
+     either add `fonts/w95fa.woff` or remove this block.
+   - Parent: the `body` rule uses this family as the first choice.
+   --------------------------- */
 @font-face {
-    font-family: W95FA;
-    src: url(./fonts/w95fa.woff) format("woff");
+    /* font-family: "W95FA";
+    src: url("./fonts/w95fa.woff") format("woff"); */
+    font-family: "PixelifySans";
+    src: url("./fonts/PixelifySans-VariableFont_wght.ttf") format("trueType");
+    /* If the woff file is missing, the browser will fall back to the other families below. */
 }
 
+/* ============================================================
+   Base document styles
+   - `body` is the top-level parent for layout and spacing.
+   ============================================================ */
 body {
-    font-family: 'W95FA', 'MS Sans Serif', 'Arial', sans-serif;
+    /* Font stack: prefer W95FA if installed, otherwise fall back. */
+    font-family: "PixelifySans", "MS Sans Serif", "Arial", sans-serif;
     font-size: 11pt;
 
     background-color: var(--win95-bg);
     color: var(--win95-text);
+
+    /* page padding; layout widths are set on .window elements */
     margin: 0;
     padding: 20px;
 }
 
-
+/* ============================================================
+   Window container
+   - Acts as the main card/window for pages.
+   - Parent of `.title-bar` and `.window-content`.
+   ============================================================ */
 .window {
-    
+    /* Layout & sizing */
+    width: 600px;           /* fixed width like a classic Win95 window */
+    margin: 20px auto;      /* center horizontally, vertical spacing */
+    display: flex;
+    flex-direction: column;
+
+    /* 3D-ish border like old windows */
     border-style: solid;
     border-width: 1px;
     border-color: var(--win95-light) var(--win95-dark) var(--win95-dark) var(--win95-light);
 
-    
+    /* inset shadow to add depth */
     box-shadow:
         1px 1px 0 1px var(--win95-text),
         -1px -1px 0 1px var(--win95-dark) inset;
@@ -36,29 +72,45 @@ body {
     background-color: var(--win95-bg);
     padding: 5px;
     margin-bottom: 20px;
-    max-width: 800px;
+    max-width: 800px; /* keep responsive if you later reduce width */
+    box-sizing: border-box;
 }
 
-
+/* ============================================================
+   Title bar
+   - Child of `.window`.
+   - Contains `.title-bar-text` and link buttons (anchors).
+   ============================================================ */
 .title-bar {
     background-color: var(--win95-blue);
     color: var(--win95-light);
+
+    /* negative margins collapse the titlebar to the window edges */
     padding: 3px 5px;
     margin: -5px -5px 10px -5px;
 
+    /* layout: left/right actions, centered title */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Title text inside the title-bar
+   - This element is centered via flexbox on the parent.
+   - Use in markup: <h1 class="title-bar-text">...</h1>
+*/
 .title-bar-text {
     font-weight: bold;
-    flex-grow: 1;
+    flex-grow: 1;          /* takes available space so the title is centered */
     text-align: center;
-    font-family: "W95FA";
+    font-family: "PixelifySans", "MS Sans Serif", "Arial", sans-serif;
+    margin: 0;
 }
 
-
+/* Title bar links (anchors) — visually styled as buttons
+   - These anchors are typically children of `.title-bar`.
+   - Example markup: <a class="button-link" href="...">Namai</a>
+*/
 .title-bar a {
     color: var(--win95-light);
     text-decoration: none;
@@ -71,70 +123,87 @@ body {
     background-color: var(--win95-dark);
 }
 
+.title-bar a.button-link {
+    color: var(--win95-light);
+    background-color: var(--win95-blue);
+    box-shadow: 1px 1px 0 0 var(--win95-text),
+                inset -1px -1px 0 0 var(--win95-dark),
+                inset 1px 1px 0 0 var(--win95-light);
+}
 
+.title-bar a.button-link:hover {
+    color: var(--win95-text);
+    background-color: var(--win95-bg);
+}
+
+.title-bar a.button-link:active {
+    border-color: var(--win95-text) var(--win95-light) var(--win95-light) var(--win95-text);
+    box-shadow: inset 1px 1px 0 0 var(--win95-dark),
+        inset -1px -1px 0 0 var(--win95-light);
+}
+
+/* ============================================================
+   Button and "button-link" styles
+   - `.button-link` is a reusable class for links that should
+     look and behave like a Win95 button.
+   - These are independent components used across the UI.
+   ============================================================ */
 button,
 input[type="submit"] {
-    
     background-color: var(--win95-bg);
     border: 1px solid var(--win95-text);
     border-right-color: var(--win95-light);
     border-bottom-color: var(--win95-light);
-    padding: 2px 8px;
+    padding: 4px 12px;      /* increased from 2px 8px */
     cursor: pointer;
     color: var(--win95-blue);
-    font-family: "W95FA";
+    font-family: "PixelifySans", "MS Sans Serif", "Arial", sans-serif;
     text-decoration: none;
-    box-shadow: 1px 1px 0 0 var(--win95-text),
+    box-shadow:
+        1px 1px 0 0 var(--win95-text),
         inset -1px -1px 0 0 var(--win95-dark),
         inset 1px 1px 0 0 var(--win95-light);
 }
 
-
 .button-link {
-    
     display: inline-block;
-    
     background-color: var(--win95-bg);
     border: 1px solid var(--win95-text);
     border-right-color: var(--win95-light);
     border-bottom-color: var(--win95-light);
-    padding: 2px 8px;
+    padding: 4px 12px;      /* increased from 2px 8px */
     cursor: pointer;
     color: var(--win95-blue);
     text-decoration: none;
     line-height: normal;
-    
-    font-family: "W95FA";
-    
-    box-shadow: 1px 1px 0 0 var(--win95-text),
+    font-family: "PixelifySans", "MS Sans Serif", "Arial", sans-serif;
+    box-shadow:
+        1px 1px 0 0 var(--win95-text),
         inset -1px -1px 0 0 var(--win95-dark),
         inset 1px 1px 0 0 var(--win95-light);
 }
 
-
-
+/* Active (pressed) state for both real buttons and button-like links */
 button:active,
 input[type="submit"]:active,
 .button-link:active {
-    
     border-color: var(--win95-text) var(--win95-light) var(--win95-light) var(--win95-text);
     box-shadow: inset 1px 1px 0 0 var(--win95-dark),
-        inset -1px -1px 0 0 var(--win95-light);
-    padding: 3px 8px;
-    
+                inset -1px -1px 0 0 var(--win95-light);
+    /* padding stays at 4px 12px — no size change on press */
 }
 
-
+/* ============================================================
+   Generic anchor styling (non-button links)
+   - These style regular text links across the site.
+   ============================================================ */
 a {
-    
     color: var(--win95-blue);
     text-decoration: none;
     border-bottom: 1px dashed var(--win95-blue);
 }
 
-
 .button-link:hover {
-    
     border-bottom-style: initial;
 }
 
@@ -142,7 +211,10 @@ a:hover {
     border-bottom-style: solid;
 }
 
-
+/* ============================================================
+   Form controls: inputs & textareas
+   - Standalone components; they visually match the Win95 look.
+   ============================================================ */
 input[type="text"],
 textarea {
     background-color: var(--win95-light);
@@ -158,18 +230,26 @@ textarea {
     box-sizing: border-box;
 }
 
+/* ============================================================
+   Lists and list helpers
+   - `.custom-list` removes default bullets for custom presentation.
+   - `ul li` + `ul li a` style lists used in the index/recipes.
+   ============================================================ */
 .custom-list {
     list-style: none;
     padding: 0;
     margin: 10px 0;
 }
 
-
 ul li {
     padding: 2px 4px;
     margin-bottom: 1px;
 }
 
+/* Links inside list items:
+   - These are often child elements of `ul li`.
+   - We make the anchors block-level so the hover area covers the row.
+*/
 ul li a {
     color: var(--win95-text);
     border-bottom: none;
@@ -182,3 +262,49 @@ ul li a:hover {
     color: var(--win95-light);
     border-bottom: none;
 }
+
+/* ============================================================
+   Page layout helpers (moved from inline styles)
+   - These help avoid repeated inline styles in HTML.
+   ============================================================ */
+
+/* `window-content` is usually a direct child of `.window`.
+   It holds the main content of a page (columns, cards, etc.). */
+.window-content {
+    padding: 10px;
+    display: flex;
+    gap: 16px; /* slight spacing between columns if present */
+}
+
+/* A small helper to replace inline `style="margin-right: 20px"` */
+.content-column {
+    margin-right: 20px;
+}
+
+/* Recipe headings — used inside recipe pages
+   - These normalize titles across multiple recipe HTML files.
+*/
+.main-title {
+    font-weight: bold;
+    text-align: center;
+    margin: 8px 0;
+}
+
+.recipe-title {
+    text-align: center;
+    margin: 6px 0 12px;
+    font-size: 1.1rem;
+}
+
+/* ============================================================
+   Notes & relationships summary (not CSS):
+   - `.window` (parent)
+       - `.title-bar` (child) contains `.title-bar-text` and action links
+       - `.window-content` (child) contains layout columns and page content
+           - `.content-column` (helper inside `.window-content`)
+           - lists (`ul`) with `li > a` (list items contain anchors)
+   - `.button-link` is reusable across the UI and can be used in
+     `.title-bar` or inline inside content.
+   - Hover/active states are defined for buttons/links to give
+     tactile Win95-like feedback.
+   ============================================================ */
