@@ -1,0 +1,15 @@
+/* ============================================================
+   recipes.css — Recipe listing and recipe page styles
+   ============================================================ */
+
+.main-title {
+    font-weight: bold;
+    text-align: center;
+    margin: 8px 0;
+}
+
+.recipe-title {
+    text-align: center;
+    margin: 6px 0 12px;
+    font-size: 1.1rem;
+}

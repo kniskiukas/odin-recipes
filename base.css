@@ -1,6 +1,6 @@
 /* ============================================================
-   odin-recipes styles.css — cleaned & documented
-   - Comments explain purpose and parent/child relationships.
+   base.css — Shared structural and theme styles
+   - Used across all pages.
    ============================================================ */
 
 /* ---------------------------
@@ -25,8 +25,6 @@
     font-family: "PixelifySans";
     src: url("./fonts/PixelifySans-VariableFont_wght.ttf") format("trueType");
 }
-
-
 
 /* ============================================================
    Base document styles
@@ -234,35 +232,6 @@ textarea {
 }
 
 /* ============================================================
-   Lists and list helpers
-   - `.custom-list` removes default bullets for custom presentation.
-   - `ul li` + `ul li a` style lists used in the index/recipes.
-   ============================================================ */
-.custom-list {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-}
-
-ul li {
-    padding: 2px 4px;
-    margin-bottom: 1px;
-}
-
-ul li a {
-    color: var(--win95-text);
-    border-bottom: none;
-    text-decoration: none;
-    display: block;
-}
-
-ul li a:hover {
-    background-color: var(--win95-blue);
-    color: var(--win95-light);
-    border-bottom: none;
-}
-
-/* ============================================================
    Page layout helpers
    - These help avoid repeated inline styles in HTML.
    ============================================================ */
@@ -275,16 +244,3 @@ ul li a:hover {
 .content-column {
     margin-right: 20px;
 }
-
-.main-title {
-    font-weight: bold;
-    text-align: center;
-    margin: 8px 0;
-}
-
-.recipe-title {
-    text-align: center;
-    margin: 6px 0 12px;
-    font-size: 1.1rem;
-}
-

@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang = "lt">
+<html lang="lt" style="background-color: #018281;">
     <head>
-        <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-        <meta charset = "UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
         <title>Namai</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="base.css">
+        <link rel="stylesheet" href="index.css">
     </head>
 
     <body class="window" style="width: 600px; margin: 20px auto; display: flex; flex-direction: column;">
         <header class="title-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-            <a class = "button-link" href="">Namai</a>
-            <a class = "button-link" href="about_me/">Apie mane</a>
+            <a class="button-link" href="">Namai</a>
+            <a class="button-link" href="about_me/">Apie mane</a>
         </header>
-        <main class="window-content" style = "padding: 10px; display: flex;">
-            <div style = "margin-right: 20px;" class = "content-column">
-                <h1 class = "title-bar-text">Kniškų giminės naudojami receptai</h1>
-                <ul>
-                    <li><a href = "recipes/kepta_duona/" class = "button-link">Kepta duona su sūrio padažu</a></li>
-                    <li><a href = "recipes/cirviniai_blynai/" class = "button-link">Čirviniai blynai</a></li>
-                    <li><a href = "recipes/tinginys/" class = "button-link">Tinginys</a></li>
-                    <li><a href = "recipes/surio_tortas/" class = "button-link">Sūrio tortas</a></li>
-                    <li><a href = "recipes/zagareliai/" class = "button-link">Žagarėliai</a></li>
-                    <li><a href = "recipes/augusto_pyragas/" class = "button-link">Augusto pyragas</a></li>
-                </ul>
+        <main class="window-content" style="padding: 10px; display: flex;">
+            <div class="split-container">
+                <a href="recipes/" class="split left">
+                    <div class="content">
+                        <h1>The Kitchen</h1>
+                        <p>Kniškų giminės receptai</p>
+                        <span class="btn">View Recipes</span>
+                    </div>
+                </a>
+
+                <a href="photography.html" class="split right">
+                    <div class="content">
+                        <h1>The Lens</h1>
+                        <p>Sports, Events & Profiles</p>
+                        <span class="btn">View Portfolio</span>
+                    </div>
+                </a>
             </div>
         </main>
     </body>
