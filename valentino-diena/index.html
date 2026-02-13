@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="lt" style="background-color: #018281;">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Su Valentino diena saulyte :3</title>
+        <link rel="stylesheet" href="../base.css">
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                font-family: Arial, sans-serif;
+                color: #ffbadd
+            }
+            .container {
+                text-align: center;
+                z-index: 10;
+                position: relative;
+            }
+            h1 {
+                color: white;
+                font-size: 2em;
+                margin: 20px 0;
+                white-space: pre-line;
+            }
+                        #responseButtons {
+                            margin-bottom: 15px;
+                        }
+            .btn {
+                background-color: #ff1493;
+                color: white;
+                padding: 15px 40px;
+                font-size: 1.2em;
+                border: 2px solid #ff69b4;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                box-shadow: 0 4px 0 #c90f6b;
+                font-family: inherit;
+                font-weight: normal;
+                line-height: normal;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+            .btn:hover {
+                background-color: #ff69b4;
+            }
+            .heart {
+                position: absolute;
+                top: -40px;
+                pointer-events: none;
+                font-size: 2em;
+                animation: fall 3s linear forwards;
+            }
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        </style>
+    </head>
+    <body style="background-color: #ffbaf6;">
+        <div class="container">
+            <h1 id="message" style="display: none;">Ar būsi mano Valentinė?</h1>
+            <div id="responseButtons" style="display: none;">
+                <button id="yesButton" class="btn">Taip!</button>
+                <button id="noButton" class="btn">Ne!</button>
+            </div>
+            <button id="revealButton" class="btn">Paspausk :P</button>
+        </div>
+
+        
+
+        <script>
+            function celebrate() {
+                const message = document.getElementById('message');
+                const text = `Už tolimų tolių
+                            Už baltų laukų
+                            Gyvena princesė
+                            Kurią aš myliu
+
+                            Gyvena ji aukštoj pily
+                            Pavadinimu saulėtekio 8
+                            Važiuoju pas ja karavanu
+                            Iki pat geležinių vartų
+
+                            Atvykstu pagerti arbatų
+                            Pabučiuoti jos karštų lūpų
+                            Paklausyti istorijų smagių
+                            Ir paliesti papulių :P
+
+                            Džiaugiuosi, kad ją turiu,
+                            Nes be jos nebūtų taip smagu
+                            Saulyte mano Neringa
+                            Aš tave myliu
+                            
+Ar būsi mano Valentinė?`;
+                let index = 0;
+                if (message.textContent === '') { // Only reveal text if it hasn't been revealed yet
+                    message.textContent = '';
+                    message.style.display = 'block';
+                    const interval = setInterval(() => {
+                        if (index < text.length) {
+                            message.textContent += text[index];
+                            index++;
+                        } else {
+                            clearInterval(interval);
+                            document.getElementById('responseButtons').style.display = 'block';
+                        }
+                    }, 200);
+                } else {
+                    for (let i = 0; i < 50; i++) {
+                        createHeart();
+                    }
+                }
+            }
+
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 0.5 + 's';
+                const rotate = Math.random() * 360;
+                heart.style.transform = `rotate(${rotate}deg)`;
+                heart.style.setProperty('--rotate', `${rotate + 360}deg`);
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 3500);
+            }
+
+            // Update CSS for .heart and @keyframes fall
+            const styleSheet = document.createElement('style');
+            styleSheet.innerHTML = `
+            .heart {
+                position: absolute;
+                top: -40px;
+                pointer-events: none;
+                font-size: 2em;
+                animation: fall 3s linear forwards;
+                will-change: transform;
+            }
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(var(--rotate, 360deg));
+                    opacity: 0;
+                }
+            }`;
+            document.head.appendChild(styleSheet);
+
+            let revealInProgress = false;
+            document.getElementById('revealButton').addEventListener('click', function() {
+                if (revealInProgress) return;
+                revealInProgress = true;
+                document.getElementById('revealButton').remove();
+                const message = document.getElementById('message');
+                const text = `Už tolimų tolių
+Už baltų laukų
+Gyvena princesė
+Kurią aš myliu
+
+Gyvena ji aukštoj pily
+Pavadinimu Saulėtekio 8
+Važiuoju pas ja karavanu
+Iki pat geležinių vartų
+
+Atvykstu pagerti arbatų
+Pabučiuoti jos karštų lūpų
+Paklausyti istorijų smagių
+Ir paliesti papulių :P
+
+Džiaugiuosi, kad ją turiu,
+Nes be jos nebūtų taip smagu
+Saulyte mano Neringa
+Aš tave myliu
+
+Ar būsi mano Valentinė?`;
+                const lines = text.split('\n');
+                let lineIndex = 0;
+                message.textContent = '';
+                message.style.display = 'block';
+                const charDelayMs = 100;
+                const linePauseMs = 1000;
+
+                const revealNextLine = () => {
+                    if (lineIndex >= lines.length) {
+                        document.getElementById('responseButtons').style.display = 'block';
+                        revealInProgress = false;
+                        return;
+                    }
+
+                    const line = lines[lineIndex];
+                    if (line === '') {
+                        message.textContent += '\n';
+                        lineIndex++;
+                        revealNextLine();
+                        return;
+                    }
+
+                    let charIndex = 0;
+                    const revealChars = setInterval(() => {
+                        if (charIndex < line.length) {
+                            message.textContent += line[charIndex];
+                            charIndex++;
+                        } else {
+                            clearInterval(revealChars);
+                            message.textContent += '\n';
+                            lineIndex++;
+                            setTimeout(revealNextLine, linePauseMs);
+                        }
+                    }, charDelayMs);
+                };
+
+                revealNextLine();
+            });
+            
+            document.getElementById('yesButton').addEventListener('click', function() {
+                document.getElementById('yesButton').textContent = 'Myliu myliu :3';
+                setInterval(() => {
+                    createHeart();
+                }, 50);
+            });
+            
+            document.getElementById('noButton').addEventListener('click', function() {
+                const noButton = document.getElementById('noButton');
+                noButton.remove();
+            });
+        </script>
+    </body>
+</html>
