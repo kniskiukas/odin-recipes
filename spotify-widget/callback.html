@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify Auth — Callback</title>
+    <style>
+        @font-face {
+            font-family: "w95fa";
+            src: url("../fonts/w95fa.woff") format("woff");
+        }
+        :root {
+            --bg: #C0C0C0; --dark: #808080; --light: #FFFFFF;
+            --blue: #000080; --text: #000000; --desktop: #018281;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "w95fa", "MS Sans Serif", Arial, sans-serif;
+            font-size: 11px;
+            background: var(--desktop);
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh;
+        }
+        .window {
+            background: var(--bg);
+            border: 2px solid;
+            border-color: var(--light) var(--dark) var(--dark) var(--light);
+            box-shadow: 1px 1px 0 1px var(--text), inset -1px -1px 0 1px var(--dark);
+            padding: 3px;
+            width: 460px;
+        }
+        .title-bar {
+            background: linear-gradient(to right, var(--blue), #1084d0);
+            color: var(--light);
+            padding: 3px 4px 3px 6px;
+            display: flex; align-items: center; gap: 4px;
+            margin-bottom: 3px;
+            font-weight: bold; font-size: 11px;
+        }
+        .content { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+        .label { font-size: 10px; color: var(--dark); margin-bottom: 2px; }
+        .code-box {
+            border: 1px solid;
+            border-color: var(--dark) var(--light) var(--light) var(--dark);
+            box-shadow: inset 1px 1px 0 var(--dark);
+            background: var(--light);
+            padding: 4px 6px;
+            font-family: "w95fa", monospace;
+            font-size: 11px;
+            word-break: break-all;
+            user-select: all;
+        }
+        .btn {
+            align-self: flex-start;
+            background: var(--bg);
+            border: 1px solid;
+            border-color: var(--light) var(--dark) var(--dark) var(--light);
+            box-shadow: 1px 1px 0 var(--text), inset -1px -1px 0 var(--dark), inset 1px 1px 0 var(--light);
+            padding: 3px 12px;
+            cursor: pointer;
+            font-family: "w95fa", "MS Sans Serif", Arial, sans-serif;
+            font-size: 11px;
+        }
+        .btn:active {
+            border-color: var(--dark) var(--light) var(--light) var(--dark);
+            box-shadow: inset 1px 1px 0 var(--dark);
+            padding: 4px 11px 2px 13px;
+        }
+        .note { font-size: 10px; color: var(--dark); line-height: 1.5; }
+        .error { color: #800000; }
+    </style>
+</head>
+<body>
+<div class="window">
+    <div class="title-bar">♪ Spotify Auth — Authorization Code</div>
+    <div class="content" id="content">
+        <p>Reading authorization code...</p>
+    </div>
+</div>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const code  = params.get("code");
+    const error = params.get("error");
+    const content = document.getElementById("content");
+
+    if (error) {
+        content.innerHTML = `
+            <p class="error">Authorization failed: <strong>${error}</strong></p>
+            <p class="note">Close this window and try the authorization link again.</p>`;
+    } else if (code) {
+        content.innerHTML = `
+            <p>Authorization code received. Copy it below, then run the curl command to exchange it for a refresh token.</p>
+            <div>
+                <div class="label">Authorization Code (click to select all)</div>
+                <div class="code-box" id="code-box">${code}</div>
+            </div>
+            <button class="btn" onclick="copyCode()">Copy Code</button>
+            <p class="note" id="copy-status"></p>
+            <p class="note">
+                Next step — run this in your terminal (fill in your client ID and secret):<br><br>
+                <span style="font-family:monospace; font-size:10px;">
+                curl -X POST https://accounts.spotify.com/api/token \\<br>
+                &nbsp; -u "CLIENT_ID:CLIENT_SECRET" \\<br>
+                &nbsp; -d "grant_type=authorization_code" \\<br>
+                &nbsp; -d "code=${code}" \\<br>
+                &nbsp; -d "redirect_uri=https://kniskiukas.github.io/odin-recipes/spotify-widget/callback.html"
+                </span>
+            </p>`;
+    } else {
+        content.innerHTML = `
+            <p class="error">No authorization code found in the URL.</p>
+            <p class="note">This page should only be opened by Spotify's redirect. Start the authorization flow from the widget setup instructions.</p>`;
+    }
+
+    function copyCode() {
+        navigator.clipboard.writeText(code).then(() => {
+            document.getElementById("copy-status").textContent = "Copied!";
+        });
+    }
+</script>
+</body>
+</html>
