@@ -560,7 +560,7 @@ async function updateDisplay() {
         const item   = cpData.item;
         const artist = item.artists.map(a => a.name).join(", ");
         const album  = item.album.name;
-        const art    = item.album.images[0]?.url;
+        const art    = item.album.images[0] && item.album.images[0].url;
 
         isPlaying       = cpData.is_playing;
         currentProgress = cpData.progress_ms;
@@ -594,7 +594,7 @@ async function updateDisplay() {
         startProgressTick();
 
         // Device / volume from player endpoint
-        if (playerData?.device) {
+        if (playerData && playerData.device) {
             setStatus(`🖥 ${playerData.device.name}`);
             const vol = playerData.device.volume_percent;
             document.getElementById("sb-volume").textContent = `Vol: ${vol}%`;
