@@ -1,0 +1,82 @@
+@font-face {
+    font-family: "w95fa";
+    src: url("../fonts/w95fa.woff") format("woff");
+}
+
+:root {
+    --bg: #C0C0C0;
+    --dark: #808080;
+    --light: #FFFFFF;
+    --blue: #000080;
+    --text: #000000;
+    --desktop: #018281;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: "w95fa", "MS Sans Serif", Arial, sans-serif;
+    font-size: 11px;
+    background: var(--desktop);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.window {
+    background: var(--bg);
+    border: 2px solid;
+    border-color: var(--light) var(--dark) var(--dark) var(--light);
+    box-shadow: 1px 1px 0 1px var(--text), inset -1px -1px 0 1px var(--dark);
+    padding: 3px;
+    width: 460px;
+}
+
+.title-bar {
+    background: linear-gradient(to right, var(--blue), #1084d0);
+    color: var(--light);
+    padding: 3px 4px 3px 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 3px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.content { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+
+.label { font-size: 10px; color: var(--dark); margin-bottom: 2px; }
+
+.code-box {
+    border: 1px solid;
+    border-color: var(--dark) var(--light) var(--light) var(--dark);
+    box-shadow: inset 1px 1px 0 var(--dark);
+    background: var(--light);
+    padding: 4px 6px;
+    font-family: "w95fa", monospace;
+    font-size: 11px;
+    word-break: break-all;
+    user-select: all;
+}
+
+.btn {
+    align-self: flex-start;
+    background: var(--bg);
+    border: 1px solid;
+    border-color: var(--light) var(--dark) var(--dark) var(--light);
+    box-shadow: 1px 1px 0 var(--text), inset -1px -1px 0 var(--dark), inset 1px 1px 0 var(--light);
+    padding: 3px 12px;
+    cursor: pointer;
+    font-family: "w95fa", "MS Sans Serif", Arial, sans-serif;
+    font-size: 11px;
+}
+.btn:active {
+    border-color: var(--dark) var(--light) var(--light) var(--dark);
+    box-shadow: inset 1px 1px 0 var(--dark);
+    padding: 4px 11px 2px 13px;
+}
+
+.note { font-size: 10px; color: var(--dark); line-height: 1.5; }
+.error { color: #800000; }
