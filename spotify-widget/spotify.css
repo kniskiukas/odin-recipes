@@ -28,6 +28,9 @@ body {
     justify-content: center;
     min-height: 100vh;
     image-rendering: pixelated;
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+    text-rendering: optimizeSpeed;
 }
 
 /* ── Window shell ─────────────────────────────────────── */
@@ -45,11 +48,11 @@ body {
 .title-bar {
     background: linear-gradient(to right, var(--blue) 0%, #1084d0 100%);
     color: var(--light);
-    padding: 3px 4px 3px 6px;
+    padding: 2px 4px 2px 6px;
     display: flex;
     align-items: center;
     gap: 4px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 .title-bar-icon {
@@ -95,10 +98,10 @@ body {
 /* ── Menu bar ─────────────────────────────────────────── */
 .menu-bar {
     border-bottom: 1px solid var(--dark);
-    padding: 2px 4px;
+    padding: 1px 4px;
     display: flex;
     gap: 2px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     font-size: 11px;
 }
 
@@ -113,10 +116,10 @@ body {
 
 /* ── Inner content ────────────────────────────────────── */
 .content {
-    padding: 6px;
+    padding: 4px 6px 4px 6px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 /* ── Top row: art + track info ────────────────────────── */
@@ -130,8 +133,8 @@ body {
     border: 2px solid;
     border-color: var(--dark) var(--light) var(--light) var(--dark);
     box-shadow: inset 1px 1px 0 var(--text);
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
     flex-shrink: 0;
     overflow: hidden;
     background: var(--text);
@@ -164,8 +167,8 @@ body {
     border-color: var(--dark) var(--light) var(--light) var(--dark);
     box-shadow: inset 1px 1px 0 var(--dark);
     background: var(--light);
-    padding: 2px 4px;
-    margin-bottom: 4px;
+    padding: 1px 4px;
+    margin-bottom: 2px;
     font-size: 11px;
     white-space: nowrap;
     overflow: hidden;
@@ -221,7 +224,7 @@ body {
 
 .progress-track {
     flex: 1;
-    height: 14px;
+    height: 10px;
     border: 1px solid;
     border-color: var(--dark) var(--light) var(--light) var(--dark);
     box-shadow: inset 1px 1px 0 var(--dark);
@@ -255,7 +258,7 @@ body {
     border: 1px solid;
     border-color: var(--light) var(--dark) var(--dark) var(--light);
     box-shadow: 1px 1px 0 var(--text), inset -1px -1px 0 var(--dark), inset 1px 1px 0 var(--light);
-    padding: 3px 10px;
+    padding: 2px 10px;
     cursor: pointer;
     font-family: "w95fa", "MS Sans Serif", Arial, sans-serif;
     font-size: 11px;
