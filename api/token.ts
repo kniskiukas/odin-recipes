@@ -20,7 +20,12 @@ export default async function handler(_req: VercelRequest, res: VercelResponse):
     });
 
     if (!response.ok) {
-        res.status(response.status).json({ error: 'Token fetch failed' });
+        let errorType = 'Token fetch failed';
+        try {
+            const body = await response.json() as { error?: string };
+            if (body.error === 'invalid_grant') errorType = 'invalid_grant';
+        } catch { /* ignore parse errors */ }
+        res.status(response.status).json({ error: errorType });
         return;
     }
 

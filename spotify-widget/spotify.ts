@@ -37,7 +37,13 @@ async function getAccessToken(): Promise<string> {
     if (accessToken && Date.now() < tokenExpiry - 30_000) return accessToken;
 
     const res = await fetch('/api/token');
-    if (!res.ok) throw new Error(`Token error: ${res.status}`);
+    if (!res.ok) {
+        const body = await res.json() as { error?: string };
+        if (body.error === 'invalid_grant') {
+            throw new Error('Spotify token expired — re-run the OAuth flow and update SPOTIFY_REFRESH_TOKEN in Vercel');
+        }
+        throw new Error(`Token error: ${res.status}`);
+    }
 
     const data = await res.json() as TokenResponse;
     accessToken = data.access_token;
